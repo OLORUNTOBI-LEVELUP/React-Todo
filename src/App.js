@@ -17,15 +17,36 @@ class App extends React.Component {
       todo: '',
     };
   }
+ 
+  addTodo = e => {
+    e.preventDefault();
+    const todos = this.state.todos.slice();
+    todos.push({ task: this.state.todo, completed: false, id: Date.now() });
+    this.setState({ todos, todo: '' });
+  };
+
+  changeTodo = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
 
 
  
 
   render() {
     return (
-      <div >
+      <div className="container">
         <div>
-         
+          <TodoForm
+            value={this.state.todo}
+            handleTodoChange={this.changeTodo}
+            handleAddTodo={this.addTodo}
+            
+          />
+          <TodoList
+            
+            todos={this.state.todos}
+          />
         </div>
       </div>
     );
