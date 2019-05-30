@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
-
+import './App.css';
 
 class App extends React.Component {
   constructor() {
@@ -53,6 +53,11 @@ class App extends React.Component {
     return (
       <div className="container">
         <div>
+          <h3>Todo List:</h3>
+        <TodoList
+             handleToggleComplete={this.toggleTodoComplete}
+            todos={this.state.todos}
+          />
           <TodoForm
             value={this.state.todo}
             handleTodoChange={this.changeTodo}
@@ -60,10 +65,7 @@ class App extends React.Component {
             handleClearTodos={this.clearCompletedTodos}
             
           />
-          <TodoList
-             handleToggleComplete={this.toggleTodoComplete}
-            todos={this.state.todos}
-          />
+          
         </div>
       </div>
     );
