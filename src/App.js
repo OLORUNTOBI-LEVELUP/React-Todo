@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
-
+import './App.css';
 
 class App extends React.Component {
   constructor() {
@@ -29,6 +29,22 @@ class App extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  toggleTodoComplete = id => {
+    let todos = this.state.todos.slice();
+    todos = todos.map(todo => {
+      if (todo.id === id) {
+        todo.completed = !todo.completed;
+        return todo;
+      } else return todo;
+    });
+    this.setState({ todos });
+  };
+  clearCompletedTodos = e => {
+    e.preventDefault();
+    let todos = this.state.todos.slice();
+    todos = todos.filter(todo => !todo.completed);
+    this.setState({ todos });
+  };
 
 
  
@@ -37,16 +53,19 @@ class App extends React.Component {
     return (
       <div className="container">
         <div>
+          <h3>Todo List:</h3>
+        <TodoList
+             handleToggleComplete={this.toggleTodoComplete}
+            todos={this.state.todos}
+          />
           <TodoForm
             value={this.state.todo}
             handleTodoChange={this.changeTodo}
             handleAddTodo={this.addTodo}
+            handleClearTodos={this.clearCompletedTodos}
             
           />
-          <TodoList
-            
-            todos={this.state.todos}
-          />
+          
         </div>
       </div>
     );
